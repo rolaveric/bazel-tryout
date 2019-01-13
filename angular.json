@@ -3,9 +3,9 @@
   "version": 1,
   "newProjectRoot": "apps",
   "projects": {
-    "bazel-tryout": {
-      "root": "",
-      "sourceRoot": "src",
+    "single-app": {
+      "root": "apps/single-app",
+      "sourceRoot": "apps/single-app/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -13,46 +13,46 @@
         "build": {
           "builder": "@angular/bazel:build",
           "options": {
-            "targetLabel": "//src:bundle.js",
+            "targetLabel": "//apps/single-app:bundle.js",
             "bazelCommand": "build"
           },
           "configurations": {
             "production": {
-              "targetLabel": "//src:bundle"
+              "targetLabel": "//apps/single-app:bundle"
             }
           }
         },
         "serve": {
           "builder": "@angular/bazel:build",
           "options": {
-            "targetLabel": "//src:devserver",
+            "targetLabel": "//apps/single-app:devserver",
             "bazelCommand": "run"
           },
           "configurations": {
             "production": {
-              "targetLabel": "//src:prodserver"
+              "targetLabel": "//apps/single-app:prodserver"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bazel-tryout:build"
+            "browserTarget": "single-app:build"
           }
         },
         "test": {
           "builder": "@angular/bazel:build",
           "options": {
             "bazelCommand": "test",
-            "targetLabel": "//src/..."
+            "targetLabel": "//apps/single-app/..."
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "apps/single-app/src/tsconfig.app.json",
+              "apps/single-app/src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -61,8 +61,8 @@
         }
       }
     },
-    "bazel-tryout-e2e": {
-      "root": "e2e/",
+    "single-app-e2e": {
+      "root": "apps/single-app-e2e/",
       "projectType": "application",
       "prefix": "",
       "architect": {
@@ -70,18 +70,18 @@
           "builder": "@angular/bazel:build",
           "options": {
             "bazelCommand": "test",
-            "targetLabel": "//e2e:devserver_test"
+            "targetLabel": "//apps/single-app-e2e:devserver_test"
           },
           "configurations": {
             "production": {
-              "targetLabel": "//e2e:prodserver_test"
+              "targetLabel": "//apps/single-app-e2e:prodserver_test"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
+            "tsConfig": "apps/single-app-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
@@ -90,5 +90,5 @@
       }
     }
   },
-  "defaultProject": "bazel-tryout"
+  "defaultProject": "single-app"
 }

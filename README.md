@@ -1,27 +1,66 @@
 # BazelTryout
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+Repo that steps through the use of Bazel with Angular workspaces, progressively adding and testing different workspace requirements.
 
-## Development server
+# Initial setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Install Java/OpenJDK 1.8
+* Install Bazel: https://docs.bazel.build/versions/master/install.html
+* Install NodeJS: https://nodejs.org
+* Install yarn: https://yarnpkg.com
+* Install Angular CLI + schematics: `yarn global add @angular/cli @angular/bazel`
+* Install ibazel (for watch mode): `yarn global add @bazel/ibazel`
 
-## Code scaffolding
+# Single app nx workspace
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+First step is a single app nx workspace setup to use Bazel for dev, unit testing, and builds.  
 
-## Build
+The best setup I found is to actually create the workspace using `ng add bazel-tryout --collection=@angular/bazel`,
+then manually add the nx extensions to it by:
+* Moving the app code to `apps/single-app/`
+* Moving the e2e code to `apps/single-app-e2e/`
+* Creating an `nx.json` file
+* Adding `affected` scripts to `package.json`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Uses
+* Dev server: `yarn start single-app` :heavy_check_mark:
+* Prod server: `yarn start single-app --prod` :heavy_check_mark:
+* Dev build: `yarn run build single-app` :heavy_check_mark:
+* Prod build: `yarn run build single-app --prod` :heavy_check_mark:
+* Unit tests: `yarn test single-app` :heavy_check_mark:
+* E2E tests: `yarn run e2e single-app-e2e` :heavy_check_mark:
 
-## Running unit tests
+# SCSS component styling
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+TODO
 
-## Running end-to-end tests
+# Sub Bazel package
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+TODO
 
-## Further help
+# App + Library
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+TODO
+
+# import @angular/material
+
+TODO
+
+# import @ngrx
+
+TODO
+
+# import lodash
+
+TODO
+
+# Lazy-loaded route chunking
+
+TODO
+
+# Other TODOs
+
+* CI setup (Travis and/or Circle)
+* Schematics
+* Docker
+* Windows

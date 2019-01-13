@@ -25,7 +25,7 @@ protractor_web_test_suite(
       "@npm//protractor",
     ],
     on_prepare = ":protractor.on-prepare.js",
-    server = "//src:prodserver",
+    server = "//apps/single-app:prodserver",
     deps = [":e2e_lib"],
 )
 
@@ -36,7 +36,7 @@ protractor_web_test_suite(
       "@npm//protractor",
     ],
     on_prepare = ":protractor.on-prepare.js",
-    server = "//src:devserver",
+    server = "//apps/single-app:devserver",
     deps = [":e2e_lib"],
 )
 

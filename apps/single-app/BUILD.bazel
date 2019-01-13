@@ -6,14 +6,14 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "rollup_bundle", "history_server")
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver")
 
 ng_module(
-    name = "src",
+    name = "single-app",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
             "**/*.spec.ts",
-            "main.ts",
-            "test.ts",
-            "initialize_testbed.ts",
+            "src/main.ts",
+            "src/test.ts",
+            "src/initialize_testbed.ts",
         ],
     ),
     assets = glob([
@@ -23,14 +23,15 @@ ng_module(
     deps = [
         "@angular//packages/core",
         "@angular//packages/platform-browser",
+        "@angular//packages/router",
         "@npm//@types",
     ],
 )
 
 rollup_bundle(
     name = "bundle",
-    entry_point = "src/main.prod",
-    deps = ["//src"],
+    entry_point = "apps/single-app/src/main.prod",
+    deps = ["//apps/single-app"],
 )
 
 # Needed because the prodserver only loads static files that appear under this
@@ -45,7 +46,7 @@ genrule(
 history_server(
     name = "prodserver",
     data = [
-        "index.html",
+        "src/index.html",
         ":bundle",
         ":zonejs",
     ],
@@ -57,15 +58,17 @@ ts_devserver(
     additional_root_paths = [
         "npm/node_modules/zone.js/dist",
         "npm/node_modules/tslib",
+        "bazel_tryout/apps/single-app/src",
     ],
-    entry_module = "bazel_tryout/src/main.dev",
+    entry_module = "bazel_tryout/apps/single-app/src/main.dev",
     serving_path = "/bundle.min.js",
     static_files = [
         "@npm//node_modules/zone.js:dist/zone.min.js",
         "@npm//node_modules/tslib:tslib.js",
-        "index.html",
+        "src/index.html",
+        "src/favicon.ico",
     ],
-    deps = [":src"],
+    deps = [":single-app"],
 )
 
 ts_library(
@@ -73,8 +76,9 @@ ts_library(
     testonly = 1,
     srcs = glob(["**/*.spec.ts"]),
     deps = [
-        ":src",
+        ":single-app",
         "@angular//packages/core/testing",
+        "@angular//packages/router/testing",
         "@npm//@types",
     ],
 )
@@ -83,7 +87,7 @@ ts_library(
     name = "initialize_testbed",
     testonly = 1,
     srcs = [
-        "initialize_testbed.ts",
+        "src/initialize_testbed.ts",
     ],
     deps = [
         "@angular//packages/core/testing",
