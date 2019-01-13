@@ -11,7 +11,7 @@ Repo that steps through the use of Bazel with Angular workspaces, progressively 
 * Install Angular CLI + schematics: `yarn global add @angular/cli @angular/bazel`
 * Install ibazel (for watch mode): `yarn global add @bazel/ibazel`
 
-# Single app nx workspace
+# Single app nx workspace: [ef24ef9](https://github.com/rolaveric/bazel-tryout/commit/ef24ef93b17864701ede59289700c9b5024ceca7)
 
 First step is a single app nx workspace setup to use Bazel for dev, unit testing, and builds.  
 
