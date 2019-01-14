@@ -1,0 +1,6 @@
+$color: blue;
+
+:host {
+    border: 1px solid $color;
+    display: block;
+}
