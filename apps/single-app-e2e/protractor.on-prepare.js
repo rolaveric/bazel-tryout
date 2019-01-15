@@ -15,9 +15,10 @@ module.exports = function(config) {
   // The port used is returned in serverSpec and the protractor serverUrl
   // is the configured.
   const portFlag = config.server.endsWith('prodserver') ? '-p' : '-port';
-  return protractorUtils.runServer(config.workspace, config.server, portFlag, [])
-      .then(serverSpec => {
-        const serverUrl = `http://localhost:${serverSpec.port}`;
-        protractor.browser.baseUrl = serverUrl;
-      });
+  return protractorUtils
+    .runServer(config.workspace, config.server, portFlag, [])
+    .then(serverSpec => {
+      const serverUrl = `http://localhost:${serverSpec.port}`;
+      protractor.browser.baseUrl = serverUrl;
+    });
 };
