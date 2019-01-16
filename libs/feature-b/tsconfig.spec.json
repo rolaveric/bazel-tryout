@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/libs/feature-b",
+    "types": ["jasmine", "node"]
+  },
+  "files": ["src/test.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
+}

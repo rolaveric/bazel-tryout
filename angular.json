@@ -51,8 +51,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/single-app/src/tsconfig.app.json",
-              "apps/single-app/src/tsconfig.spec.json"
+              "apps/single-app/tsconfig.app.json",
+              "apps/single-app/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -506,6 +506,211 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/sub-package-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "app-and-library": {
+      "root": "apps/app-and-library/",
+      "sourceRoot": "apps/app-and-library/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//apps/app-and-library:bundle.js",
+            "bazelCommand": "build"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/app-and-library:bundle"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//apps/app-and-library:devserver",
+            "bazelCommand": "run"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/app-and-library:prodserver"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//apps/app-and-library/..."
+          }
+        },
+        "ngbuild": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-and-library",
+            "index": "apps/app-and-library/src/index.html",
+            "main": "apps/app-and-library/src/main.ts",
+            "polyfills": "apps/app-and-library/src/polyfills.ts",
+            "tsConfig": "apps/app-and-library/tsconfig.app.json",
+            "assets": [
+              "apps/app-and-library/src/favicon.ico",
+              "apps/app-and-library/src/assets"
+            ],
+            "styles": [
+              "apps/app-and-library/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/app-and-library/src/environments/environment.ts",
+                  "with": "apps/app-and-library/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "ngserve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "app-and-library:ngbuild"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "app-and-library:ngbuild:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-and-library:build"
+          }
+        },
+        "ngtest": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/app-and-library/src/test.ts",
+            "polyfills": "apps/app-and-library/src/polyfills.ts",
+            "tsConfig": "apps/app-and-library/tsconfig.spec.json",
+            "karmaConfig": "apps/app-and-library/karma.conf.js",
+            "styles": [
+              "apps/app-and-library/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/app-and-library/src/favicon.ico",
+              "apps/app-and-library/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/app-and-library/tsconfig.app.json",
+              "apps/app-and-library/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "app-and-library-e2e": {
+      "root": "apps/app-and-library-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//apps/app-and-library-e2e:devserver_test"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/app-and-library-e2e:prodserver_test"
+            }
+          }
+        },
+        "nge2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/app-and-library-e2e/protractor.conf.js",
+            "devServerTarget": "app-and-library:ngserve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "app-and-library:ngserve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/app-and-library-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "feature-b": {
+      "root": "libs/feature-b",
+      "sourceRoot": "libs/feature-b/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "test": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//libs/feature-b/..."
+          }
+        },
+        "ngtest": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/feature-b/src/test.ts",
+            "tsConfig": "libs/feature-b/tsconfig.spec.json",
+            "karmaConfig": "libs/feature-b/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-b/tsconfig.lib.json",
+              "libs/feature-b/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

@@ -10,6 +10,30 @@
     "projects": {
         "single-app": {
             "tags": []
+        },
+        "single-app-e2e": {
+            "tags": []
+        },
+        "scss-component-styling": {
+            "tags": []
+        },
+        "scss-component-styling-e2e": {
+            "tags": []
+        },
+        "sub-package": {
+            "tags": []
+        },
+        "sub-package-e2e": {
+            "tags": []
+        },
+        "app-and-library": {
+            "tags": []
+        },
+        "app-and-library-e2e": {
+            "tags": []
+        },
+        "feature-b": {
+            "tags": []
         }
     }
   }

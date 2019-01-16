@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/apps/scss-component-styling-e2e",
+    "outDir": "../../out-tsc/apps/app-and-library-e2e",
     "module": "commonjs",
     "target": "es5",
     "types": ["jasmine", "jasminewd2", "node"]

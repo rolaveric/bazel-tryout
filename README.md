@@ -139,7 +139,49 @@ It wouldn't be too difficult to create a schematic that could generate or update
 
 # App + Library
 
-TODO
+App was created called `app-and-library`, and a library was created called `feature-b` based on the nx schematics.
+
+For the most part this is the same process as for the sub-package example, with the exception that the import for the
+feature module is an absolute path rather than a relative path.  
+Bazel overrides the `paths` setting from tsconfig to work with it's internals. But what it does provide is path from the location of the `WORKSPACE`, using it's name. In this case that's `bazel_tryout/`.  
+So instead of `@namespace/feature-b` that might be used in a standard nx workspace, we use `bazel_tryout/libs/feature-b/src`.  
+And so our typescript tools don't complain, we add our own `paths` entry to the root `tsconfig.json`:
+
+```
+{
+    "compilerOptions": {
+        "paths": {
+            "bazel_tryout/*": ["*"]
+        }
+    }
+}
+```
+
+`APP=app-and-library`
+
+Bazel targets
+* Dev server :heavy_check_mark:
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
+* E2E tests :heavy_check_mark:
+
+Angular CLI targets
+* Dev server :heavy_check_mark:
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
+* E2E tests :heavy_check_mark:
+
+`APP=feature-b`
+
+Bazel targets
+* Unit tests :heavy_check_mark:
+
+Angular CLI targets
+* Unit tests :heavy_check_mark:
 
 # import @angular/material
 

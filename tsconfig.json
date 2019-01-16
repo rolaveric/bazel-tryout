@@ -18,6 +18,10 @@
       "es2018",
       "dom"
     ],
-    "paths": {}
+    "paths": {
+      "bazel_tryout/*": [
+        "*"
+      ]
+    }
   }
 }
