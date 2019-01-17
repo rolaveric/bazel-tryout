@@ -185,7 +185,16 @@ Angular CLI targets
 
 # import @angular/material
 
-TODO
+:x: Unable to complete  
+Trying to run Bazel commands with @angular/material produces an error:
+
+`Error: Expected build_bazel_rules_typescript to be version 0.22.0`
+
+There's some mention of this problem in github.com/angular/angular-bazel-example:
+https://github.com/angular/angular-bazel-example/blob/master/WORKSPACE#L43  
+However trying to apply the same solution didn't work either. I suspect because other
+versions have progressed, causing the same problem to manifest elsewhere.  
+I could possibly get it to work by using the exact same `http_archive()` calls from that file.
 
 # import @ngrx
 
