@@ -5,24 +5,24 @@ ts_library(
     name = "e2e_lib",
     testonly = 1,
     srcs = glob(["src/**/*.ts"]),
+    data = [
+        "//:tsconfig.json",
+    ],
     tsconfig = ":tsconfig.e2e.json",
     deps = [
-      "@npm//@types/jasmine",
-      "@npm//@types/jasminewd2",
-      "@npm//@types/node",
-      "@npm//jasmine",
-      "@npm//protractor",
-    ],
-    data = [
-      "//:tsconfig.json",
+        "@npm//@types/jasmine",
+        "@npm//@types/jasminewd2",
+        "@npm//@types/node",
+        "@npm//jasmine",
+        "@npm//protractor",
     ],
 )
 
 protractor_web_test_suite(
     name = "prodserver_test",
     data = [
-      "@angular//packages/bazel/src/protractor/utils",
-      "@npm//protractor",
+        "@angular//packages/bazel/src/protractor/utils",
+        "@npm//protractor",
     ],
     on_prepare = ":protractor.on-prepare.js",
     server = "//apps/single-app:prodserver",
@@ -32,8 +32,8 @@ protractor_web_test_suite(
 protractor_web_test_suite(
     name = "devserver_test",
     data = [
-      "@angular//packages/bazel/src/protractor/utils",
-      "@npm//protractor",
+        "@angular//packages/bazel/src/protractor/utils",
+        "@npm//protractor",
     ],
     on_prepare = ":protractor.on-prepare.js",
     server = "//apps/single-app:devserver",
