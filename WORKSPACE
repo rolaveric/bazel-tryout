@@ -14,7 +14,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # The @angular repo contains rule for building Angular applications
 # Provides "build_bazel_rules_typescript"
-ANGULAR_VERSION = "7.2.0"
+ANGULAR_VERSION = "7.2.1"
 http_archive(
     name = "angular",
     url = "https://github.com/angular/angular/archive/%s.zip" % ANGULAR_VERSION,
