@@ -54,9 +54,7 @@
               "apps/single-app/tsconfig.app.json",
               "apps/single-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "ngbuild": {
@@ -71,9 +69,7 @@
               "apps/single-app/src/favicon.ico",
               "apps/single-app/src/assets"
             ],
-            "styles": [
-              "apps/single-app/src/styles.css"
-            ],
+            "styles": ["apps/single-app/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -121,9 +117,7 @@
             "polyfills": "apps/single-app/src/polyfills.ts",
             "tsConfig": "apps/single-app/tsconfig.spec.json",
             "karmaConfig": "apps/single-app/karma.conf.js",
-            "styles": [
-              "apps/single-app/src/styles.css"
-            ],
+            "styles": ["apps/single-app/src/styles.css"],
             "scripts": [],
             "assets": [
               "apps/single-app/src/favicon.ico",
@@ -166,9 +160,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/single-app-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -223,9 +215,7 @@
               "apps/scss-component-styling/src/favicon.ico",
               "apps/scss-component-styling/src/assets"
             ],
-            "styles": [
-              "apps/scss-component-styling/src/styles.css"
-            ],
+            "styles": ["apps/scss-component-styling/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -279,9 +269,7 @@
             "polyfills": "apps/scss-component-styling/src/polyfills.ts",
             "tsConfig": "apps/scss-component-styling/tsconfig.spec.json",
             "karmaConfig": "apps/scss-component-styling/karma.conf.js",
-            "styles": [
-              "apps/scss-component-styling/src/styles.css"
-            ],
+            "styles": ["apps/scss-component-styling/src/styles.css"],
             "scripts": [],
             "assets": [
               "apps/scss-component-styling/src/favicon.ico",
@@ -296,9 +284,7 @@
               "apps/scss-component-styling/tsconfig.app.json",
               "apps/scss-component-styling/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -336,9 +322,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/scss-component-styling-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -393,9 +377,7 @@
               "apps/sub-package/src/favicon.ico",
               "apps/sub-package/src/assets"
             ],
-            "styles": [
-              "apps/sub-package/src/styles.css"
-            ],
+            "styles": ["apps/sub-package/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -449,9 +431,7 @@
             "polyfills": "apps/sub-package/src/polyfills.ts",
             "tsConfig": "apps/sub-package/tsconfig.spec.json",
             "karmaConfig": "apps/sub-package/karma.conf.js",
-            "styles": [
-              "apps/sub-package/src/styles.css"
-            ],
+            "styles": ["apps/sub-package/src/styles.css"],
             "scripts": [],
             "assets": [
               "apps/sub-package/src/favicon.ico",
@@ -466,9 +446,7 @@
               "apps/sub-package/tsconfig.app.json",
               "apps/sub-package/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -506,9 +484,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/sub-package-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -563,9 +539,7 @@
               "apps/app-and-library/src/favicon.ico",
               "apps/app-and-library/src/assets"
             ],
-            "styles": [
-              "apps/app-and-library/src/styles.css"
-            ],
+            "styles": ["apps/app-and-library/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -619,9 +593,7 @@
             "polyfills": "apps/app-and-library/src/polyfills.ts",
             "tsConfig": "apps/app-and-library/tsconfig.spec.json",
             "karmaConfig": "apps/app-and-library/karma.conf.js",
-            "styles": [
-              "apps/app-and-library/src/styles.css"
-            ],
+            "styles": ["apps/app-and-library/src/styles.css"],
             "scripts": [],
             "assets": [
               "apps/app-and-library/src/favicon.ico",
@@ -636,9 +608,7 @@
               "apps/app-and-library/tsconfig.app.json",
               "apps/app-and-library/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -676,9 +646,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/app-and-library-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -711,9 +679,169 @@
               "libs/feature-b/tsconfig.lib.json",
               "libs/feature-b/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "ngrx-store": {
+      "root": "apps/ngrx-store/",
+      "sourceRoot": "apps/ngrx-store/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//apps/ngrx-store:bundle.js",
+            "bazelCommand": "build"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/ngrx-store:bundle"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//apps/ngrx-store:devserver",
+            "bazelCommand": "run"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/ngrx-store:prodserver"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//apps/ngrx-store/..."
+          }
+        },
+        "ngbuild": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ngrx-store",
+            "index": "apps/ngrx-store/src/index.html",
+            "main": "apps/ngrx-store/src/main.ts",
+            "polyfills": "apps/ngrx-store/src/polyfills.ts",
+            "tsConfig": "apps/ngrx-store/tsconfig.app.json",
+            "assets": [
+              "apps/ngrx-store/src/favicon.ico",
+              "apps/ngrx-store/src/assets"
+            ],
+            "styles": ["apps/ngrx-store/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngrx-store/src/environments/environment.ts",
+                  "with": "apps/ngrx-store/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "ngserve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngrx-store:ngbuild"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngrx-store:ngbuild:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngrx-store:build"
+          }
+        },
+        "ngtest": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/ngrx-store/src/test.ts",
+            "polyfills": "apps/ngrx-store/src/polyfills.ts",
+            "tsConfig": "apps/ngrx-store/tsconfig.spec.json",
+            "karmaConfig": "apps/ngrx-store/karma.conf.js",
+            "styles": ["apps/ngrx-store/src/styles.css"],
+            "scripts": [],
+            "assets": [
+              "apps/ngrx-store/src/favicon.ico",
+              "apps/ngrx-store/src/assets"
             ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ngrx-store/tsconfig.app.json",
+              "apps/ngrx-store/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "ngrx-store-e2e": {
+      "root": "apps/ngrx-store-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//apps/ngrx-store-e2e:devserver_test"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/ngrx-store-e2e:prodserver_test"
+            }
+          }
+        },
+        "nge2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/ngrx-store-e2e/protractor.conf.js",
+            "devServerTarget": "ngrx-store:ngserve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngrx-store:ngserve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/ngrx-store-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

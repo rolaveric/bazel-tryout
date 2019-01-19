@@ -198,7 +198,33 @@ I could possibly get it to work by using the exact same `http_archive()` calls f
 
 # import @ngrx
 
-TODO
+This was a weird and wonderful one, which I couldn't have worked out without the [angular-bazel-example](https://github.com/angular/angular-bazel-example) repo.
+
+The challenge with this example is that we're importing third-party Angular code without a Bazel package (@ngrx is built with Bazel, but after my experience with Material, I didn't want to even attempt it) and that has... issues.  
+The workaround is to run the Angular compiler over the module, generating the necessary files for Bazel to pickup. We do this by introducing a new `postinstall.tsconfig.json` which includes from the important `node_modules/{library}`, and adding a `postinstall` script to `package.json` that runs the Angular compiler (`ngc`) using this tsconfig.
+
+It sounds like the long-term solution is for Ivy to be released, which drops the need for these extra files.  
+[It's close, but not there yet.](https://is-angular-ivy-ready.firebaseapp.com/)
+
+The other thing that's required is to provide a config for [RequireJS](https://requirejs.org/) in the devserver, so it knows how to load `@ngrx/store` in AMD or UMD format.
+
+`APP=ngrx-store`
+
+Bazel targets
+* Dev server :heavy_check_mark:
+* Prod server :x: Some how the `__extends` utility for creating classes comes out `undefined`? Not sure if a rollup or prodserver config problem.
+* Dev build :warning: It completes, but the prod server issue makes it suspect.
+* Prod build :warning: As above.
+* Unit tests :x: Throws error about `'There is no timestamp for @ngrx/store.js!'`. Might need to do some RequireJS config here too?
+* E2E tests :heavy_check_mark:
+
+Angular CLI targets
+* Dev server :heavy_check_mark:
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
+* E2E tests :heavy_check_mark:
 
 # import lodash
 
