@@ -845,6 +845,168 @@
           }
         }
       }
+    },
+    "using-lodash": {
+      "root": "apps/using-lodash/",
+      "sourceRoot": "apps/using-lodash/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//apps/using-lodash:bundle.js",
+            "bazelCommand": "build"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/using-lodash:bundle"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//apps/using-lodash:devserver",
+            "bazelCommand": "run"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/using-lodash:prodserver"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//apps/using-lodash/..."
+          }
+        },
+        "ngbuild": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/using-lodash",
+            "index": "apps/using-lodash/src/index.html",
+            "main": "apps/using-lodash/src/main.ts",
+            "polyfills": "apps/using-lodash/src/polyfills.ts",
+            "tsConfig": "apps/using-lodash/tsconfig.app.json",
+            "assets": [
+              "apps/using-lodash/src/favicon.ico",
+              "apps/using-lodash/src/assets"
+            ],
+            "styles": ["apps/using-lodash/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/using-lodash/src/environments/environment.ts",
+                  "with": "apps/using-lodash/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "ngserve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "using-lodash:ngbuild"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "using-lodash:ngbuild:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "using-lodash:build"
+          }
+        },
+        "ngtest": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/using-lodash/src/test.ts",
+            "polyfills": "apps/using-lodash/src/polyfills.ts",
+            "tsConfig": "apps/using-lodash/tsconfig.spec.json",
+            "karmaConfig": "apps/using-lodash/karma.conf.js",
+            "styles": ["apps/using-lodash/src/styles.css"],
+            "scripts": [],
+            "assets": [
+              "apps/using-lodash/src/favicon.ico",
+              "apps/using-lodash/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/using-lodash/tsconfig.app.json",
+              "apps/using-lodash/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "using-lodash-e2e": {
+      "root": "apps/using-lodash-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "bazelCommand": "test",
+            "targetLabel": "//apps/using-lodash-e2e:devserver_test"
+          },
+          "configurations": {
+            "production": {
+              "targetLabel": "//apps/using-lodash-e2e:prodserver_test"
+            }
+          }
+        },
+        "nge2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/using-lodash-e2e/protractor.conf.js",
+            "devServerTarget": "using-lodash:ngserve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "using-lodash:ngserve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/using-lodash-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "single-app"

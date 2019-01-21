@@ -198,24 +198,16 @@ I could possibly get it to work by using the exact same `http_archive()` calls f
 
 # import @ngrx
 
-This was a weird and wonderful one, which I couldn't have worked out without the [angular-bazel-example](https://github.com/angular/angular-bazel-example) repo.
-
-The challenge with this example is that we're importing third-party Angular code without a Bazel package (@ngrx is built with Bazel, but after my experience with Material, I didn't want to even attempt it) and that has... issues.  
-The workaround is to run the Angular compiler over the module, generating the necessary files for Bazel to pickup. We do this by introducing a new `postinstall.tsconfig.json` which includes from the important `node_modules/{library}`, and adding a `postinstall` script to `package.json` that runs the Angular compiler (`ngc`) using this tsconfig.
-
-It sounds like the long-term solution is for Ivy to be released, which drops the need for these extra files.  
-[It's close, but not there yet.](https://is-angular-ivy-ready.firebaseapp.com/)
-
-The other thing that's required is to provide a config for [RequireJS](https://requirejs.org/) in the devserver, so it knows how to load `@ngrx/store` in AMD or UMD format.
+@ngrx is a Bazel package, so using it is as simple as adding it to the WORKSPACE via `http_archive`, then referencing it in `BUILD.bazel` as `@ngrx//modules/store`
 
 `APP=ngrx-store`
 
 Bazel targets
 * Dev server :heavy_check_mark:
-* Prod server :x: Some how the `__extends` utility for creating classes comes out `undefined`? Not sure if a rollup or prodserver config problem.
-* Dev build :warning: It completes, but the prod server issue makes it suspect.
-* Prod build :warning: As above.
-* Unit tests :x: Throws error about `'There is no timestamp for @ngrx/store.js!'`. Might need to do some RequireJS config here too?
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
 * E2E tests :heavy_check_mark:
 
 Angular CLI targets
@@ -226,11 +218,48 @@ Angular CLI targets
 * Unit tests :heavy_check_mark:
 * E2E tests :heavy_check_mark:
 
-# import lodash
+# import lodash (and lodash-es)
+
+This example "works", but it's not an ideal setup.  
+The problem is that we have two different Bazel rules that expect the code in two very different formats:
+
+* `ts_devserver` uses RequireJS and expects everything in AMD/UMD format.
+* `rollup_bundle` requires everything to be in ESM format, as that's how Rollup functions.
+
+Plain vanilla lodash does have an AMD/UMD bundle, but no ESM artifacts.  
+There's an alternative ESM buid called `lodash-es`, but it has no AMD/UMD bundle.
+
+My solution was to use `lodash-es` normally, then set RequireJS config to switch to the lodash bundle during dev.  
+This is a flagrant duct-tape-and-string hack though which wouldn't work for every third-party library - and honestly shouldn't.
+
+Similarly for unit tests it kept trying to load `lodash-es.js`, so I created `require.karma-config.js` that maps `lodash-es` to `/base/npm/node_modules/lodash/lodash` (The `/base` part was the real kicker that took me a while to get right).
+
+Possible solution I want to explore include:
+* Configuring `rollup_bundle` to use `rollup-plugin-commonjs`, removing the hard reqirement for ESM.
+* Using `rollup_bundle` to generate a UMD bundle from ESM based third-party libraries.
+* Using `allowJs: true` with typescript to treat third-party code the same as your own code, build wise.
+
+Bazel targets
+* Dev server :heavy_check_mark:
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
+* E2E tests :heavy_check_mark:
+
+Angular CLI targets
+* Dev server :heavy_check_mark:
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
+* E2E tests :heavy_check_mark:
+
+# Lazy-loaded route chunking
 
 TODO
 
-# Lazy-loaded route chunking
+# ngx-bootstrap
 
 TODO
 
@@ -240,3 +269,5 @@ TODO
 * Schematics
 * Docker
 * Windows
+* NxModule
+* E2E tests with async/await

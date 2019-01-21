@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/apps/using-lodash",
+    "types": []
+  },
+  "exclude": [
+    "src/test.ts",
+    "src/main.dev.ts",
+    "src/main.prod.ts",
+     "**/*.spec.ts"
+  ],
+  "include": ["**/*.ts"]
+}

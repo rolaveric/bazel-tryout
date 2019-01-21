@@ -37,6 +37,14 @@ http_archive(
     strip_prefix = "rules_sass-%s" % RULES_SASS_VERSION,
 )
 
+# @ngrx
+NGRX_VERSION = "7.0.0"
+http_archive(
+    name = "ngrx",
+    strip_prefix = "platform-%s" % NGRX_VERSION,
+    url = "https://github.com/ngrx/platform/archive/%s.zip" % NGRX_VERSION,
+)
+
 ####################################
 # Load and install our dependencies downloaded above.
 

@@ -1,0 +1,1 @@
+require.config({paths: {'lodash-es': 'lodash.min'}});

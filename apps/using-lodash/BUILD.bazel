@@ -4,10 +4,10 @@ load("@angular//:index.bzl", "ng_module")
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_library", "ts_web_test_suite")
 load("@build_bazel_rules_nodejs//:defs.bzl", "history_server", "rollup_bundle")
 load("@build_bazel_rules_nodejs//internal/web_package:web_package.bzl", "web_package")
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_config", "ts_devserver")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver")
 
 ng_module(
-    name = "ngrx-store",
+    name = "using-lodash",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
@@ -24,16 +24,17 @@ ng_module(
     deps = [
         "@angular//packages/core",
         "@angular//packages/platform-browser",
-        "@ngrx//modules/store",
         "@npm//@types",
+        "@npm//lodash-es"
     ],
 )
 
 rollup_bundle(
     name = "bundle",
-    entry_point = "apps/ngrx-store/src/main.prod",
+    entry_point = "apps/using-lodash/src/main.prod",
     deps = [
-        "//apps/ngrx-store",
+        "//apps/using-lodash",
+        "@npm//lodash-es",
     ],
 )
 
@@ -54,7 +55,7 @@ web_package(
 history_server(
     name = "prodserver",
     data = [":prodapp"],
-    templated_args = ["apps/ngrx-store/prodapp"],
+    templated_args = ["apps/using-lodash/prodapp"],
 )
 
 ts_devserver(
@@ -62,11 +63,13 @@ ts_devserver(
     additional_root_paths = [
         "npm/node_modules/zone.js/dist",
         "npm/node_modules/tslib",
-        "bazel_tryout/apps/ngrx-store/src",
+        "npm/node_modules/lodash",
+        "bazel_tryout/apps/using-lodash/src",
     ],
-    entry_module = "bazel_tryout/apps/ngrx-store/src/main.dev",
+    entry_module = "bazel_tryout/apps/using-lodash/src/main.dev",
     index_html = "src/index.html",
     scripts = [
+        ":require.config.js",
         "@npm//node_modules/tslib:tslib.js",
     ],
     port = 4200,
@@ -75,7 +78,10 @@ ts_devserver(
         "@npm//node_modules/zone.js:dist/zone.min.js",
         "src/favicon.ico",
     ],
-    deps = [":ngrx-store"],
+    deps = [
+        ":using-lodash",
+        "@npm//lodash",
+    ],
 )
 
 ts_library(
@@ -83,10 +89,9 @@ ts_library(
     testonly = 1,
     srcs = glob(["**/*.spec.ts"]),
     deps = [
-        ":ngrx-store",
+        ":using-lodash",
         "@angular//packages/core/testing",
         "@npm//@types",
-        "@ngrx//modules/store",
     ],
 )
 
@@ -105,23 +110,32 @@ ts_library(
 
 ts_web_test_suite(
     name = "test",
-    # After RequireJS - JS files only
-    srcs = [
-        "@npm//node_modules/tslib:tslib.js",
+    browsers = [
+        "@io_bazel_rules_webtesting//browsers:chromium-local",
     ],
     # do not sort
+    # Before RequireJS
     bootstrap = [
         "@npm//node_modules/zone.js:dist/zone-testing-bundle.js",
         "@npm//node_modules/reflect-metadata:Reflect.js",
     ],
-    browsers = [
-        "@io_bazel_rules_webtesting//browsers:chromium-local",
-    ],
+    # After RequireJS, but before `srcs` and `deps` - must be `ts_library` labels
     runtime_deps = [
         ":initialize_testbed",
     ],
+    # After RequireJS - JS files only
+    srcs = [
+        "@npm//node_modules/tslib:tslib.js",
+        ":require.karma-config.js",
+    ],
+    # Available on request only
+    static_files = [
+        "@npm//node_modules/lodash:lodash.js",
+    ],
+    # "Other targets which produce Javascript" (??? Different to srcs... how?)
     deps = [
         ":test_lib",
         "@npm//karma-jasmine",
+        "@npm//lodash",
     ],
 )

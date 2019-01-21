@@ -1,0 +1,1 @@
+require.config({paths: {'lodash-es': '/base/npm/node_modules/lodash/lodash'}});

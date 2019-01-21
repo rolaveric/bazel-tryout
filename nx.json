@@ -40,6 +40,12 @@
     },
     "ngrx-store-e2e": {
       "tags": []
+    },
+    "using-lodash": {
+      "tags": []
+    },
+    "using-lodash-e2e": {
+      "tags": []
     }
   }
 }
