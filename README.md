@@ -66,7 +66,7 @@ Generated new app using `ng g app scss-component-styling` then applied the Bazel
 
 The key to using SCSS (or any compile-to-CSS language) is to compile each file in it's own bazel rule, then include the output as an asset to the `ng_module()` rule:
 
-```
+```python
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 
 sass_binary(
@@ -81,6 +81,28 @@ ng_module(
       "**/*.css",
       "**/*.html",
     ]) + [":app_styling"],
+)
+```
+
+Latest `@angular/bazel` schematics now show it's possible to dynamically create rules using globs and then insert them into `assets`:
+
+```python
+[
+    sass_binary(
+        name = "style_" + x,
+        src = x,
+        deps = [],
+    )
+    for x in glob(["src/app/*.scss"])
+]
+
+ng_module(
+    name = "scss-component-styling",
+    assets = glob([
+        "**/*.css",
+        "**/*.html",
+    ]) + [":style_" + x for x in glob(["src/app/*.scss"])],
+    ...
 )
 ```
 
@@ -147,7 +169,7 @@ Bazel overrides the `paths` setting from tsconfig to work with it's internals. B
 So instead of `@namespace/feature-b` that might be used in a standard nx workspace, we use `bazel_tryout/libs/feature-b/src`.  
 And so our typescript tools don't complain, we add our own `paths` entry to the root `tsconfig.json`:
 
-```
+```json
 {
     "compilerOptions": {
         "paths": {
@@ -263,11 +285,21 @@ TODO
 
 TODO
 
+# NxModule
+
+TODO
+
+# proxy-config
+
+TODO
+
+# Random issues found
+
+* Sometimes a `bazel clean` is required. eg. I had issues supporting async/await in E2E tests. I had updated `BUILD.bazel` to include `@npm//tslib` but was still getting an error saying it couldn't be found. Running `bazel clean` fixed it. Was infuriating.
+
 # Other TODOs
 
 * CI setup (Travis and/or Circle)
 * Schematics
 * Docker
 * Windows
-* NxModule
-* E2E tests with async/await

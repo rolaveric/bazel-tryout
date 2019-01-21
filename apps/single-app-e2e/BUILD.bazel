@@ -1,20 +1,26 @@
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_library")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_config", "ts_library")
 load("@angular//:index.bzl", "protractor_web_test_suite")
+
+ts_config(
+    name = "e2e_tsconfig",
+    src = ":tsconfig.e2e.json",
+    deps = [
+        "//:tsconfig.json",
+    ],
+)
 
 ts_library(
     name = "e2e_lib",
     testonly = 1,
     srcs = glob(["src/**/*.ts"]),
-    data = [
-        "//:tsconfig.json",
-    ],
-    tsconfig = ":tsconfig.e2e.json",
+    tsconfig = ":e2e_tsconfig",
     deps = [
         "@npm//@types/jasmine",
         "@npm//@types/jasminewd2",
         "@npm//@types/node",
         "@npm//jasmine",
         "@npm//protractor",
+        "@npm//tslib",
     ],
 )
 
