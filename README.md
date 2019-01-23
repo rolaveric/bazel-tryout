@@ -116,19 +116,13 @@ Bazel targets
 * Unit tests :heavy_check_mark:
 * E2E tests :heavy_check_mark:
 
-Angular CLI targets: All fail as unable to find `app.component.css`, because it's now `app.component.scss`.
-* Dev server :x:
-* Prod server :x:
-* Dev build :x:
-* Prod build :x:
-* Unit tests :x:
-* E2E tests :x:
-
-## Backwards compatibility workaround
-
-If it's important to you to have backwards compatibility with the standard Angular CLI builders, for either a gradual adoption or as a safety net, you'll need to find a workaround for the CSS processing problem.
-
-One possibility would be to use a separate tool that watches your SCSS files for changes and generates the CSS files in your source code. It means committing generated code, but ideally it should only be for a short transition period. After which it's easier to cleanup the unwanted `*.css` files.
+Angular CLI targets: ~~All fail because unable to find `app.component.css`.~~ Now passes! Thanks to [a change](https://github.com/angular/angular/pull/28167) to the Angular compiler.
+* Dev server :heavy_check_mark:
+* Prod server :heavy_check_mark:
+* Dev build :heavy_check_mark:
+* Prod build :heavy_check_mark:
+* Unit tests :heavy_check_mark:
+* E2E tests :heavy_check_mark:
 
 # Sub Bazel package
 
@@ -218,6 +212,8 @@ However trying to apply the same solution didn't work either. I suspect because 
 versions have progressed, causing the same problem to manifest elsewhere.  
 I could possibly get it to work by using the exact same `http_archive()` calls from that file.
 
+TODO Revisit
+
 # import @ngrx
 
 @ngrx is a Bazel package, so using it is as simple as adding it to the WORKSPACE via `http_archive`, then referencing it in `BUILD.bazel` as `@ngrx//modules/store`
@@ -276,6 +272,8 @@ Angular CLI targets
 * Prod build :heavy_check_mark:
 * Unit tests :heavy_check_mark:
 * E2E tests :heavy_check_mark:
+
+TODO Revisit for more elegant solution
 
 # Lazy-loaded route chunking
 
